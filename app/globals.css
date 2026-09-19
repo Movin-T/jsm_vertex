@@ -25,6 +25,67 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.vertex-page {
+  background-color: #fcfaf8;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(237, 106, 69, 0.045) 0 1px,
+    transparent 1px 6px
+  );
+  background-size: 22px 22px;
+}
+
+.vertex-page > header,
+.vertex-page > section {
+  background-color: rgba(252, 250, 248, 0.94);
+}
+
+.avatar-mark {
+  display: flex;
+  height: 36px;
+  width: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 58% 32%, #f5c8a6 0 18%, transparent 19%),
+    linear-gradient(145deg, #f0dfd2, #c47f61);
+  color: #49291e;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+.coral-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(2px, 1vw, 10px);
+  overflow: hidden;
+  opacity: 0.65;
+}
+
+.coral-bars span {
+  display: block;
+  width: clamp(24px, 7vw, 90px);
+  min-width: 18px;
+  background: linear-gradient(
+    to top,
+    rgba(237, 106, 69, 0.55),
+    rgba(255, 183, 157, 0.06)
+  );
+}
+
+.coral-bars span:nth-child(3n + 1) {
+  height: 52%;
+}
+.coral-bars span:nth-child(3n + 2) {
+  height: 84%;
+}
+.coral-bars span:nth-child(3n) {
+  height: 66%;
+}
+
 .font-display {
   font-family: 'Iowan Old Style', 'Georgia', serif;
   font-style: normal;
