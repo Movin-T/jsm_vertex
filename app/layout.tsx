@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   description: 'Search your learning in plain English with Vertex.',
 };
 
+/** Wraps every route with the document structure and global font variables. */
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
     <html
