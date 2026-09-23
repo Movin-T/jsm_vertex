@@ -33,6 +33,7 @@ const courses = [
   },
 ];
 
+/** Renders the decorative Vertex logo used in the page header. */
 function BrandMark() {
   return (
     <svg viewBox="0 0 36 36" className="h-8 w-8" aria-hidden="true">
@@ -49,6 +50,7 @@ function BrandMark() {
   );
 }
 
+/** Renders a decorative interface glyph with optional caller-supplied classes. */
 function Icon({
   name,
   className = 'h-4 w-4',
@@ -117,6 +119,7 @@ function Icon({
   );
 }
 
+/** Renders the Docker logo or a styled text mark for a course. */
 function CourseMark({ type, className }: { type: string; className: string }) {
   if (type === 'docker') {
     return (
@@ -150,6 +153,7 @@ function CourseMark({ type, className }: { type: string; className: string }) {
   );
 }
 
+/** Renders a linked course summary with its mark and catalog metadata. */
 function CourseCard({ course }: { course: (typeof courses)[number] }) {
   return (
     <Link
@@ -181,6 +185,7 @@ function CourseCard({ course }: { course: (typeof courses)[number] }) {
   );
 }
 
+/** Renders the Vertex landing page and its static course catalog. */
 export default function Home() {
   return (
     <main className="vertex-page min-h-screen overflow-hidden text-[#1d1b1a]">
