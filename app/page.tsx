@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { SignInButton, SignUpButton, Show, UserButton } from '@clerk/nextjs';
 
 const courses = [
   {
@@ -214,8 +215,30 @@ export default function Home() {
             >
               <Icon name="bell" className="h-5 w-5" />
             </button>
-            <div className="avatar-mark" aria-label="Account profile">
-              AM
+            <div aria-label="Account profile">
+              <Show when="signed-out">
+                <div className="flex items-center gap-3 text-[12px] font-medium">
+                  <SignInButton>
+                    <button
+                      type="button"
+                      className="rounded-full px-3 py-1.5 transition hover:text-[#ed6a45]"
+                    >
+                      Sign in
+                    </button>
+                  </SignInButton>
+                  <SignUpButton>
+                    <button
+                      type="button"
+                      className="rounded-full bg-[#ed6a45] px-3.5 py-1.5 text-white transition hover:bg-[#e15a33]"
+                    >
+                      Sign up
+                    </button>
+                  </SignUpButton>
+                </div>
+              </Show>
+              <Show when="signed-in">
+                <UserButton />
+              </Show>
             </div>
           </div>
         </div>
