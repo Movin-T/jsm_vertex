@@ -1,0 +1,8 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "/^cd \"/Users/movint/Documents/Coding/Personal Projects/vertex\" && mkdir -p web studio && git mv app web/app && git mv public web/public && git mv next-env\\.d\\.ts web/next-env\\.d\\.ts && git mv package\\.json web/package\\.json && git mv package-lock\\.json web/package-lock\\.json && git mv next\\.config\\.ts web/next\\.config\\.ts && git mv eslint\\.config\\.mjs web/eslint\\.config\\.mjs && git mv postcss\\.config\\.mjs web/postcss\\.config\\.mjs && git mv tsconfig\\.json web/tsconfig\\.json && git mv proxy\\.ts web/proxy\\.ts && git mv \\.env\\.local web/\\.env\\.local && ls web && echo --- && ls$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}

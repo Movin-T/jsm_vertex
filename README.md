@@ -1,24 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+This is [Vertex](../AGENTS.md), an AI-powered learning platform. The repo has two standalone workspaces:
+
+- `studio/` — the Sanity Studio (content authoring), run with Vite via the Sanity CLI.
+- `web/` — the Next.js app that reads content and renders the site.
 
 ## Getting Started
 
-First, run the development server:
+Install and run each workspace from its own folder, in two terminals:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cd studio && npm install && npm run dev   # http://localhost:3333
+cd web && npm install && npm run dev      # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Copy [.env.example](.env.example) to `web/.env.local` and fill in the Clerk and Sanity values. Mirror `NEXT_PUBLIC_SANITY_PROJECT_ID` / `NEXT_PUBLIC_SANITY_DATASET` into `studio/.env` as `SANITY_STUDIO_PROJECT_ID` / `SANITY_STUDIO_DATASET`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The first time you run the Studio locally, allow the web app's origin to call Sanity's API:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+cd studio && npx sanity cors add http://localhost:3000 --credentials
+```
+
+After editing the schema or a GROQ query, regenerate types for the web app:
+
+```bash
+cd studio && npm run typegen
+```
 
 ## Learn More
 
