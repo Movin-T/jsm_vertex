@@ -1,5 +1,5 @@
-import { UserIcon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import { UserIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
 
 export const instructor = defineType({
   name: 'instructor',
@@ -38,4 +38,4 @@ export const instructor = defineType({
   preview: {
     select: { title: 'name', subtitle: 'expertise', media: 'photo' },
   },
-})
+});

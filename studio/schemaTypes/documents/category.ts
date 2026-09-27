@@ -1,5 +1,5 @@
-import { TagIcon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import { TagIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
 
 export const category = defineType({
   name: 'category',
@@ -27,4 +27,4 @@ export const category = defineType({
   preview: {
     select: { title: 'title' },
   },
-})
+});

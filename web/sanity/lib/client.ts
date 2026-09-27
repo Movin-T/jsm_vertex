@@ -1,8 +1,8 @@
-import 'server-only'
+import 'server-only';
 
-import { createClient } from 'next-sanity'
+import { createClient } from 'next-sanity';
 
-import { apiVersion, dataset, projectId } from '../env'
+import { apiVersion, dataset, projectId } from '../env';
 
 /**
  * Server-only client. Reads the private dataset with a read token that
@@ -14,4 +14,4 @@ export const client = createClient({
   apiVersion,
   token: process.env.SANITY_API_READ_TOKEN,
   useCdn: false,
-})
+});

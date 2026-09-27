@@ -1,5 +1,5 @@
-import { PlayIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { PlayIcon } from '@sanity/icons';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const lesson = defineType({
   name: 'lesson',
@@ -76,4 +76,4 @@ export const lesson = defineType({
   preview: {
     select: { title: 'title', subtitle: 'duration', media: 'poster' },
   },
-})
+});

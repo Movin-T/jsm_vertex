@@ -1,5 +1,5 @@
-import { BookIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { BookIcon } from '@sanity/icons';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const module_ = defineType({
   name: 'module',
@@ -28,8 +28,8 @@ export const module_ = defineType({
   preview: {
     select: { title: 'title', lessons: 'lessons' },
     prepare({ title, lessons }) {
-      const count = Array.isArray(lessons) ? lessons.length : 0
-      return { title, subtitle: `${count} lesson${count === 1 ? '' : 's'}` }
+      const count = Array.isArray(lessons) ? lessons.length : 0;
+      return { title, subtitle: `${count} lesson${count === 1 ? '' : 's'}` };
     },
   },
-})
+});

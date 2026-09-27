@@ -1,5 +1,5 @@
-import { LinkIcon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import { LinkIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
 
 export const resource = defineType({
   name: 'resource',
@@ -40,4 +40,4 @@ export const resource = defineType({
   preview: {
     select: { title: 'title', subtitle: 'type' },
   },
-})
+});

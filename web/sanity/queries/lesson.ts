@@ -1,11 +1,11 @@
-import { defineQuery } from 'next-sanity'
+import { defineQuery } from 'next-sanity';
 
 export const LESSON_SLUGS_QUERY = defineQuery(`
   *[_type == "course" && defined(slug.current)]{
     "courseSlug": slug.current,
     "lessonSlugs": modules[].lessons[]->slug.current
   }
-`)
+`);
 
 export const LESSON_BY_SLUG_QUERY = defineQuery(`
   *[_type == "lesson" && slug.current == $lessonSlug][0]{
@@ -32,4 +32,4 @@ export const LESSON_BY_SLUG_QUERY = defineQuery(`
       }
     }
   }
-`)
+`);

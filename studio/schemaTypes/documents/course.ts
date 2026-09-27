@@ -1,5 +1,5 @@
-import { DocumentTextIcon } from '@sanity/icons'
-import { defineArrayMember, defineField, defineType } from 'sanity'
+import { DocumentTextIcon } from '@sanity/icons';
+import { defineArrayMember, defineField, defineType } from 'sanity';
 
 export const course = defineType({
   name: 'course',
@@ -59,7 +59,7 @@ export const course = defineType({
     }),
     defineField({
       name: 'learningOutcomes',
-      title: 'What you\'ll learn',
+      title: "What you'll learn",
       type: 'array',
       of: [defineArrayMember({ type: 'learningOutcome' })],
     }),
@@ -86,4 +86,4 @@ export const course = defineType({
   preview: {
     select: { title: 'title', subtitle: 'level', media: 'coverImage' },
   },
-})
+});

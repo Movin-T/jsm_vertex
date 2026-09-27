@@ -1,4 +1,4 @@
-import { defineQuery } from 'next-sanity'
+import { defineQuery } from 'next-sanity';
 
 export const COURSES_QUERY = defineQuery(`
   *[_type == "course"] | order(title asc) {
@@ -16,11 +16,11 @@ export const COURSES_QUERY = defineQuery(`
     "moduleCount": count(modules),
     "lessonCount": count(modules[].lessons[])
   }
-`)
+`);
 
 export const COURSE_SLUGS_QUERY = defineQuery(`
   *[_type == "course" && defined(slug.current)].slug.current
-`)
+`);
 
 export const COURSE_BY_SLUG_QUERY = defineQuery(`
   *[_type == "course" && slug.current == $slug][0]{
@@ -43,4 +43,4 @@ export const COURSE_BY_SLUG_QUERY = defineQuery(`
       lessons[]->{ _id, title, slug, duration, freePreview }
     }
   }
-`)
+`);

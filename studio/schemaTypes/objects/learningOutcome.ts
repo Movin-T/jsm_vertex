@@ -1,5 +1,5 @@
-import { SparklesIcon } from '@sanity/icons'
-import { defineField, defineType } from 'sanity'
+import { SparklesIcon } from '@sanity/icons';
+import { defineField, defineType } from 'sanity';
 
 export const learningOutcome = defineType({
   name: 'learningOutcome',
@@ -29,4 +29,4 @@ export const learningOutcome = defineType({
   preview: {
     select: { title: 'title', subtitle: 'description' },
   },
-})
+});

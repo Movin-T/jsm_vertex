@@ -1,4 +1,4 @@
-import { defineQuery } from 'next-sanity'
+import { defineQuery } from 'next-sanity';
 
 export const CATEGORY_BY_SLUG_QUERY = defineQuery(`
   *[_type == "category" && slug.current == $slug][0]{
@@ -10,4 +10,4 @@ export const CATEGORY_BY_SLUG_QUERY = defineQuery(`
       _id, title, slug, coverImage, level, studentCount
     }
   }
-`)
+`);
