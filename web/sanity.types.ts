@@ -189,8 +189,25 @@ export type Instructor = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  expertise?: string;
-  bio?: string;
+  expertise?: Array<string>;
+  bio?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -394,8 +411,25 @@ export type COURSE_BY_SLUG_QUERY_RESULT = {
       crop?: SanityImageCrop;
       _type: "image";
     } | null;
-    expertise: string | null;
-    bio: string | null;
+    expertise: Array<string> | null;
+    bio: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
   } | null;
   category: {
     _id: string;
@@ -430,8 +464,25 @@ export type INSTRUCTOR_BY_SLUG_QUERY_RESULT = {
     crop?: SanityImageCrop;
     _type: "image";
   } | null;
-  expertise: string | null;
-  bio: string | null;
+  expertise: Array<string> | null;
+  bio: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
   courses: Array<{
     _id: string;
     title: string | null;
