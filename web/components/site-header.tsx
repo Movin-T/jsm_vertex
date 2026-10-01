@@ -39,10 +39,10 @@ function BellIcon() {
 export function SiteHeader() {
   return (
     <header className="border-b border-[#eee7e1] bg-[#fcfaf8]/90">
-      <div className="mx-auto flex min-h-[72px] max-w-[1440px] items-center justify-between gap-6 px-6 md:px-10">
+      <div className="mx-auto grid grid-cols-[1fr_auto] items-center gap-x-4 gap-y-3 px-5 py-4 md:flex md:min-h-[72px] md:justify-between md:gap-6 md:px-10 md:py-0">
         <Link
           href="/"
-          className="flex items-center gap-2.5"
+          className="col-start-1 row-start-1 flex items-center gap-2.5 md:col-auto md:row-auto"
           aria-label="Vertex home"
         >
           <BrandMark />
@@ -51,7 +51,7 @@ export function SiteHeader() {
           </span>
         </Link>
         <nav
-          className="mr-auto flex items-center gap-8 pl-8 text-[12px] font-medium text-[#1e1b19]"
+          className="col-span-2 row-start-2 mr-auto flex items-center gap-8 pl-0 text-[12px] font-medium text-[#1e1b19] md:col-auto md:row-auto md:pl-8"
           aria-label="Primary navigation"
         >
           <Link href="/courses" className="transition hover:text-[#ed6a45]">
@@ -61,7 +61,7 @@ export function SiteHeader() {
             My Learning
           </Link>
         </nav>
-        <div className="flex items-center gap-5">
+        <div className="col-start-2 row-start-1 flex items-center gap-5 md:col-auto md:row-auto">
           <button
             type="button"
             className="rounded-full p-1.5 text-[#4b4a49] transition hover:bg-[#f4e9e2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ed6a45]"

@@ -89,7 +89,7 @@ function Icon({
 
 /** Renders a course's cover image thumbnail, or a styled text mark when no image is set. */
 function CourseMark({ course }: { course: Course }) {
-  if (course.coverImage) {
+  if (course.coverImage?.asset?._ref) {
     return (
       <Image
         src={urlFor(course.coverImage).width(112).height(112).fit('crop').url()}

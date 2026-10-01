@@ -70,7 +70,7 @@ function Icon({
 
 /** Renders a course's cover image thumbnail, or a styled text mark when no image is set. */
 function CourseMark({ course }: { course: Course }) {
-  if (course.coverImage) {
+  if (course.coverImage?.asset?._ref) {
     return (
       <Image
         src={urlFor(course.coverImage).width(112).height(112).fit('crop').url()}
@@ -148,7 +148,10 @@ export default async function AllCoursesPage() {
         <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-9 md:px-10 md:pt-10">
           <div className="mb-5 flex items-end justify-between gap-4">
             <div>
-              <nav aria-label="Breadcrumb" className="mb-2 text-[12px] text-[#8a8580]">
+              <nav
+                aria-label="Breadcrumb"
+                className="mb-2 text-[12px] text-[#8a8580]"
+              >
                 <Link href="/" className="hover:text-[#ed6a45]">
                   Home
                 </Link>

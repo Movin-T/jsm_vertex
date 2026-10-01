@@ -183,7 +183,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
     ),
   );
   const studentCount = formatStudentCount(course.studentCount);
-  const coverImageUrl = course.coverImage
+  const coverImageUrl = course.coverImage?.asset?._ref
     ? urlFor(course.coverImage).width(720).height(720).fit('crop').url()
     : null;
 
@@ -215,7 +215,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
             {coverImageUrl ? (
               <Image
                 src={coverImageUrl}
-                alt={course.title ? `${course.title} course cover` : 'Course cover'}
+                alt={
+                  course.title ? `${course.title} course cover` : 'Course cover'
+                }
                 fill
                 priority
                 sizes="(max-width: 639px) 100vw, 280px"
@@ -346,7 +348,10 @@ export default async function CoursePage({ params }: CoursePageProps) {
         </section>
       </div>
 
-      <div className="pointer-events-none fixed inset-x-0 bottom-0 z-10 h-16" aria-hidden="true">
+      <div
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-10 h-16"
+        aria-hidden="true"
+      >
         <div className="coral-bars h-full">
           {Array.from({ length: 15 }, (_, index) => (
             <span key={index} />
@@ -359,7 +364,9 @@ export default async function CoursePage({ params }: CoursePageProps) {
         className="fixed inset-x-3 bottom-3 z-20 mx-auto flex max-w-[1080px] items-center justify-between gap-4 rounded-[10px] border border-[#efe3db] bg-[#fcfaf8]/95 px-4 py-3 shadow-[0_8px_26px_rgba(69,42,28,0.12)] backdrop-blur sm:inset-x-6 sm:px-6"
       >
         <div className="min-w-0">
-          <p className="text-[10px] text-[#7a7a80] sm:text-[11px]">Your Progress</p>
+          <p className="text-[10px] text-[#7a7a80] sm:text-[11px]">
+            Your Progress
+          </p>
           <p className="mt-1 text-[11px] text-[#7a7a80] sm:text-[12px]">
             Progress will appear as you learn
           </p>
