@@ -34,30 +34,11 @@ function Icon({
   name,
   className = 'h-4 w-4',
 }: {
-  name: 'search' | 'arrow' | 'chart' | 'clock' | 'book';
+  name: 'chart' | 'clock' | 'book';
   className?: string;
 }) {
   const shared = `${className} fill-none stroke-current stroke-[1.7]`;
 
-  if (name === 'search') {
-    return (
-      <svg viewBox="0 0 24 24" className={shared} aria-hidden="true">
-        <circle cx="10.8" cy="10.8" r="6.2" />
-        <path d="m16 16 4.2 4.2" strokeLinecap="round" />
-      </svg>
-    );
-  }
-  if (name === 'arrow') {
-    return (
-      <svg viewBox="0 0 24 24" className={shared} aria-hidden="true">
-        <path
-          d="M4 12h15m-6-6 6 6-6 6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  }
   if (name === 'chart') {
     return (
       <svg viewBox="0 0 24 24" className={shared} aria-hidden="true">
@@ -155,102 +136,41 @@ function CourseCard({ course }: { course: Course }) {
   );
 }
 
-/** Renders the Vertex landing page and its Sanity-backed course catalog. */
-export default async function Home() {
-  const courses = (await getCourses()).slice(0, 3);
+/** Renders the full catalog of Sanity-backed courses. */
+export default async function AllCoursesPage() {
+  const courses = await getCourses();
 
   return (
     <main className="vertex-page min-h-screen overflow-hidden text-[#1d1b1a]">
       <SiteHeader />
 
-      <section className="mx-auto flex max-w-[1440px] flex-col items-center px-6 pb-10 pt-12 text-center md:pt-[51px]">
-        <span className="rounded-[6px] border border-[#f3e2da] bg-[#fffaf7] px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.2em] text-[#e86440]">
-          Intelligent learning
-        </span>
-        <h1 className="mt-7 max-w-[600px] font-display text-[46px] leading-[1.06] tracking-[-0.06em] text-[#111111] md:text-[52px]">
-          Search your learning
-          <br />
-          in plain English.
-        </h1>
-        <p className="mt-5 max-w-[430px] text-[16px] leading-[1.55] text-[#69727e]">
-          Vertex understands what you want to learn and finds the exact lessons
-          across all your courses.
-        </p>
-        <Link
-          href="/courses"
-          className="mt-7 inline-flex items-center gap-5 rounded-[7px] bg-[#ed6a45] px-[18px] py-[13px] text-[14px] font-medium text-white shadow-[0_5px_10px_rgba(237,106,69,0.25)] transition hover:bg-[#d95735] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#ed6a45]"
-        >
-          Explore Courses <Icon name="arrow" className="h-4 w-4" />
-        </Link>
-        <form
-          className="mt-8 flex w-full max-w-[560px] items-center gap-3 rounded-[9px] border border-[#eee2da] bg-white/70 px-4 py-3.5 text-left shadow-[0_3px_12px_rgba(64,37,22,0.04)]"
-          action="#courses"
-        >
-          <label htmlFor="learning-search" className="sr-only">
-            Search your learning
-          </label>
-          <Icon name="search" className="h-6 w-6 shrink-0 text-[#45494e]" />
-          <input
-            id="learning-search"
-            type="search"
-            placeholder="Ask anything about your learning..."
-            className="min-w-0 flex-1 bg-transparent text-[15px] text-[#31363c] outline-none placeholder:text-[#9aa0aa]"
-          />
-          <kbd className="hidden rounded-[6px] border border-[#eee2da] bg-[#fffdfb] px-2.5 py-2 text-[12px] text-[#60656b] sm:block">
-            ⌘ K
-          </kbd>
-        </form>
-      </section>
-
-      <section id="courses" className="border-t border-[#eee7e1]">
+      <section className="border-t border-[#eee7e1]">
         <div className="mx-auto max-w-[1440px] px-6 pb-10 pt-9 md:px-10 md:pt-10">
-          <div className="mb-5 flex items-center justify-between gap-4">
-            <h2 className="font-display text-[23px] tracking-[-0.04em]">
-              All Courses
-            </h2>
-            <Link
-              href="/courses"
-              className="flex items-center gap-2 text-[12px] font-medium text-[#ed6a45] hover:text-[#c64f32]"
-            >
-              View all courses <Icon name="arrow" className="h-3.5 w-3.5" />
-            </Link>
+          <div className="mb-5 flex items-end justify-between gap-4">
+            <div>
+              <nav
+                aria-label="Breadcrumb"
+                className="mb-2 text-[12px] text-[#8a8580]"
+              >
+                <Link href="/" className="hover:text-[#ed6a45]">
+                  Home
+                </Link>
+                <span className="mx-2">›</span>
+                <span>All Courses</span>
+              </nav>
+              <h1 className="font-display text-[23px] tracking-[-0.04em]">
+                All Courses
+              </h1>
+            </div>
+            <p className="text-[12px] text-[#68717d]">
+              {courses.length} course{courses.length === 1 ? '' : 's'}
+            </p>
           </div>
           <div className="grid gap-3 md:grid-cols-3">
             {courses.map((course) => (
               <CourseCard key={course._id} course={course} />
             ))}
           </div>
-        </div>
-      </section>
-
-      <section
-        id="learning"
-        className="relative border-t border-[#eee7e1] pt-8"
-      >
-        <div className="mx-auto flex max-w-[1440px] items-center gap-5 px-6 text-center md:px-10">
-          <span className="hidden h-px flex-1 bg-[#eee3dc] sm:block" />
-          <span className="text-[12px] text-[#626a73]">
-            <span className="mr-4 text-[22px] text-[#ed6a45]">☆</span>New
-            courses and lessons added every week.
-          </span>
-          <span className="hidden h-px flex-1 bg-[#eee3dc] sm:block" />
-        </div>
-        <div className="coral-bars mt-7 h-[130px]" aria-hidden="true">
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
-          <span />
         </div>
       </section>
     </main>
