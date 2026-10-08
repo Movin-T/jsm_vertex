@@ -1,5 +1,6 @@
 'use client';
 
+import posthog from 'posthog-js';
 import { useState } from 'react';
 import type { getCourseBySlug } from '@/sanity/lib/data';
 import { durationInSeconds, formatDuration } from '@/sanity/lib/duration';
@@ -22,11 +23,19 @@ function Chevron({ open }: { open: boolean }) {
 export function BookmarkButton() {
   const [bookmarked, setBookmarked] = useState(false);
 
+  function toggleBookmark() {
+    const willBeBookmarked = !bookmarked;
+    setBookmarked(willBeBookmarked);
+    posthog.capture('course_bookmark_toggled', {
+      bookmarked: willBeBookmarked,
+    });
+  }
+
   return (
     <button
       type="button"
       aria-pressed={bookmarked}
-      onClick={() => setBookmarked((saved) => !saved)}
+      onClick={toggleBookmark}
       className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-[7px] border px-4 text-[13px] transition focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#ed6a45] ${
         bookmarked
           ? 'border-[#e66a46] bg-[#fff0ea] text-[#c9502f]'
@@ -53,18 +62,33 @@ export function CourseContent({ modules }: { modules: CourseModule[] }) {
     0,
   );
 
-  function toggleModule(key: string) {
+  function toggleModule(
+    key: string,
+    isExpanded: boolean,
+    moduleIndex: number,
+    moduleLessonCount: number,
+  ) {
     setExpandedModules((current) =>
-      current.includes(key)
+      isExpanded
         ? current.filter((moduleKey) => moduleKey !== key)
         : [...current, key],
     );
+    posthog.capture('course_module_toggled', {
+      expanded: !isExpanded,
+      module_index: moduleIndex,
+      lesson_count: moduleLessonCount,
+    });
   }
 
   function toggleAll() {
     setExpandedModules(
       hasExpandedAll ? [] : modules.map((module) => module._key),
     );
+    posthog.capture('all_course_modules_toggled', {
+      expanded: !hasExpandedAll,
+      module_count: modules.length,
+      lesson_count: lessonCount,
+    });
   }
 
   return (
@@ -91,7 +115,14 @@ export function CourseContent({ modules }: { modules: CourseModule[] }) {
                   type="button"
                   aria-expanded={isExpanded}
                   aria-controls={`module-content-${module._key}`}
-                  onClick={() => toggleModule(module._key)}
+                  onClick={() =>
+                    toggleModule(
+                      module._key,
+                      isExpanded,
+                      index + 1,
+                      moduleLessons.length,
+                    )
+                  }
                   className="flex min-h-[66px] w-full items-center gap-3 px-3 text-left transition hover:bg-white/50 focus-visible:z-10 focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-[#ed6a45] sm:gap-5 sm:px-4"
                 >
                   <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[#efe6df] font-display text-[15px]">

@@ -1,5 +1,8 @@
+'use client';
+
 import Link from 'next/link';
 import { SignInButton, SignUpButton, Show, UserButton } from '@clerk/nextjs';
+import posthog from 'posthog-js';
 
 /** Renders the decorative Vertex logo used in the page header. */
 function BrandMark() {
@@ -75,6 +78,7 @@ export function SiteHeader() {
                 <SignInButton>
                   <button
                     type="button"
+                    onClick={() => posthog.capture('sign_in_started')}
                     className="rounded-full px-3 py-1.5 transition hover:text-[#ed6a45]"
                   >
                     Sign in
@@ -83,6 +87,7 @@ export function SiteHeader() {
                 <SignUpButton>
                   <button
                     type="button"
+                    onClick={() => posthog.capture('sign_up_started')}
                     className="rounded-full bg-[#ed6a45] px-3.5 py-1.5 text-white transition hover:bg-[#e15a33]"
                   >
                     Sign up
