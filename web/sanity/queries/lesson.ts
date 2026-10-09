@@ -13,7 +13,7 @@ export const LESSON_BY_SLUG_QUERY = defineQuery(`
     title,
     slug,
     videoUrl,
-    poster,
+    "image": coalesce(poster, thumbnail),
     duration,
     freePreview,
     studentCount,
@@ -25,10 +25,12 @@ export const LESSON_BY_SLUG_QUERY = defineQuery(`
       _id,
       title,
       slug,
+      level,
+      coverImage,
       modules[]{
         _key,
         title,
-        lessons[]->{ _id, slug }
+        lessons[]->{ _id, title, slug, duration }
       }
     }
   }

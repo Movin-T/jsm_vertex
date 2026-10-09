@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import posthog from 'posthog-js';
 import { useState } from 'react';
 import type { getCourseBySlug } from '@/sanity/lib/data';
@@ -42,7 +43,11 @@ export function BookmarkButton() {
           : 'border-[#e9dfd8] bg-transparent text-[#282522] hover:bg-white/70'
       }`}
     >
-      <svg viewBox="0 0 24 24" className="h-[18px] w-[18px] fill-none stroke-current stroke-[1.7]" aria-hidden="true">
+      <svg
+        viewBox="0 0 24 24"
+        className="h-[18px] w-[18px] fill-none stroke-current stroke-[1.7]"
+        aria-hidden="true"
+      >
         <path
           d="M6.5 4.5h9.8a1.7 1.7 0 0 1 1.7 1.7v13.3l-6.6-3.4-6.6 3.4V6.2a1.7 1.7 0 0 1 1.7-1.7Z"
           strokeLinejoin="round"
@@ -53,7 +58,13 @@ export function BookmarkButton() {
   );
 }
 
-export function CourseContent({ modules }: { modules: CourseModule[] }) {
+export function CourseContent({
+  modules,
+  courseSlug,
+}: {
+  modules: CourseModule[];
+  courseSlug: string;
+}) {
   const [expandedModules, setExpandedModules] = useState<string[]>([]);
   const hasExpandedAll =
     modules.length > 0 && expandedModules.length === modules.length;
@@ -99,8 +110,7 @@ export function CourseContent({ modules }: { modules: CourseModule[] }) {
           const moduleLessons = module.lessons ?? [];
           const moduleDuration = formatDuration(
             moduleLessons.reduce(
-              (total, lesson) =>
-                total + durationInSeconds(lesson.duration),
+              (total, lesson) => total + durationInSeconds(lesson.duration),
               0,
             ),
           );
@@ -163,9 +173,12 @@ export function CourseContent({ modules }: { modules: CourseModule[] }) {
                         key={lesson._id}
                         className="flex min-h-10 items-center gap-3 border-b border-[#f1ebe6] py-2 last:border-0"
                       >
-                        <span className="min-w-0 flex-1 text-[12px] text-[#383532]">
+                        <Link
+                          href={`/courses/${courseSlug}/lessons/${lesson.slug?.current ?? ''}`}
+                          className="min-w-0 flex-1 text-[12px] text-[#383532] transition hover:text-[#d95735] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ed6a45]"
+                        >
                           {lesson.title}
-                        </span>
+                        </Link>
                         {lesson.freePreview && (
                           <span className="shrink-0 rounded-full bg-[#fff0ea] px-2 py-1 text-[9px] font-medium text-[#c9502f]">
                             Free preview
@@ -173,8 +186,9 @@ export function CourseContent({ modules }: { modules: CourseModule[] }) {
                         )}
                         {lesson.duration && (
                           <span className="shrink-0 text-[10px] text-[#77777d]">
-                            {formatDuration(durationInSeconds(lesson.duration)) ??
-                              lesson.duration}
+                            {formatDuration(
+                              durationInSeconds(lesson.duration),
+                            ) ?? lesson.duration}
                           </span>
                         )}
                       </li>
@@ -198,7 +212,9 @@ export function CourseContent({ modules }: { modules: CourseModule[] }) {
           onClick={toggleAll}
           className="absolute left-1/2 top-full z-10 -translate-x-1/2 -translate-y-1/2 rounded-[7px] border border-[#efe6df] bg-[#fcfaf8] px-4 py-2 text-[12px] shadow-[0_2px_6px_rgba(69,42,28,0.03)] transition hover:border-[#e5cfc2] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#ed6a45]"
         >
-          {hasExpandedAll ? 'Hide all lessons' : `Show all ${lessonCount} lessons`}
+          {hasExpandedAll
+            ? 'Hide all lessons'
+            : `Show all ${lessonCount} lessons`}
           <span className="ml-2 inline-block align-middle text-[#73747b]">
             <Chevron open={hasExpandedAll} />
           </span>

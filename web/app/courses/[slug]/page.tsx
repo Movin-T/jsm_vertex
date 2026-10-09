@@ -344,7 +344,7 @@ export default async function CoursePage({ params }: CoursePageProps) {
               )}
             </p>
           </div>
-          <CourseContent modules={modules} />
+          <CourseContent modules={modules} courseSlug={slug} />
         </section>
       </div>
 
