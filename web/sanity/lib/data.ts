@@ -90,7 +90,24 @@ export async function getLessonBySlug(courseSlug: string, lessonSlug: string) {
     }
   });
 
-  return { ...lesson, moduleNumber, lessonNumber };
+  const flatLessons = (lesson.course.modules ?? []).flatMap(
+    (module) => module.lessons ?? [],
+  );
+  const currentIndex = flatLessons.findIndex(
+    (entry) => entry?.slug?.current === lessonSlug,
+  );
+  const previousLesson =
+    currentIndex > 0 ? (flatLessons[currentIndex - 1] ?? null) : null;
+  const nextLesson =
+    currentIndex >= 0 ? (flatLessons[currentIndex + 1] ?? null) : null;
+
+  return {
+    ...lesson,
+    moduleNumber,
+    lessonNumber,
+    previousLesson,
+    nextLesson,
+  };
 }
 
 export function getInstructorBySlug(slug: string) {

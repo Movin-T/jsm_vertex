@@ -542,13 +542,13 @@ export type LESSON_SLUGS_QUERY_RESULT = Array<{
 
 // Source: ../web/sanity/queries/lesson.ts
 // Variable: LESSON_BY_SLUG_QUERY
-// Query: *[_type == "lesson" && slug.current == $lessonSlug][0]{    _id,    title,    slug,    videoUrl,    poster,    duration,    freePreview,    studentCount,    keyPoints,    notes,    proTip,    resources,    "course": *[_type == "course" && references(^._id) && slug.current == $courseSlug][0]{      _id,      title,      slug,      modules[]{        _key,        title,        lessons[]->{ _id, slug }      }    }  }
+// Query: *[_type == "lesson" && slug.current == $lessonSlug][0]{    _id,    title,    slug,    videoUrl,    "image": coalesce(poster, thumbnail),    duration,    freePreview,    studentCount,    keyPoints,    notes,    proTip,    resources,    "course": *[_type == "course" && references(^._id) && slug.current == $courseSlug][0]{      _id,      title,      slug,      level,      coverImage,      modules[]{        _key,        title,        lessons[]->{ _id, title, slug, duration }      }    }  }
 export type LESSON_BY_SLUG_QUERY_RESULT = {
   _id: string;
   title: string | null;
   slug: Slug | null;
   videoUrl: string | null;
-  poster: {
+  image: {
     asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
@@ -587,12 +587,22 @@ export type LESSON_BY_SLUG_QUERY_RESULT = {
     _id: string;
     title: string | null;
     slug: Slug | null;
+    level: "advanced" | "beginner" | "intermediate" | null;
+    coverImage: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
     modules: Array<{
       _key: string;
       title: string | null;
       lessons: Array<{
         _id: string;
+        title: string | null;
         slug: Slug | null;
+        duration: string | null;
       }> | null;
     }> | null;
   } | null;
@@ -608,6 +618,6 @@ declare module "@sanity/client" {
     '\n  *[_type == "course" && slug.current == $slug][0]{\n    _id,\n    title,\n    slug,\n    summary,\n    coverImage,\n    level,\n    price,\n    popular,\n    studentCount,\n    learningOutcomes,\n    instructor->{ _id, name, slug, photo, expertise, bio },\n    category->{ _id, title, slug },\n    modules[]{\n      _key,\n      title,\n      summary,\n      lessons[]->{ _id, title, slug, duration, freePreview }\n    }\n  }\n': COURSE_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "instructor" && slug.current == $slug][0]{\n    _id,\n    name,\n    slug,\n    photo,\n    expertise,\n    bio,\n    "courses": *[_type == "course" && references(^._id)]{\n      _id, title, slug, coverImage, level, studentCount\n    }\n  }\n': INSTRUCTOR_BY_SLUG_QUERY_RESULT;
     '\n  *[_type == "course" && defined(slug.current)]{\n    "courseSlug": slug.current,\n    "lessonSlugs": modules[].lessons[]->slug.current\n  }\n': LESSON_SLUGS_QUERY_RESULT;
-    '\n  *[_type == "lesson" && slug.current == $lessonSlug][0]{\n    _id,\n    title,\n    slug,\n    videoUrl,\n    poster,\n    duration,\n    freePreview,\n    studentCount,\n    keyPoints,\n    notes,\n    proTip,\n    resources,\n    "course": *[_type == "course" && references(^._id) && slug.current == $courseSlug][0]{\n      _id,\n      title,\n      slug,\n      modules[]{\n        _key,\n        title,\n        lessons[]->{ _id, slug }\n      }\n    }\n  }\n': LESSON_BY_SLUG_QUERY_RESULT;
+    '\n  *[_type == "lesson" && slug.current == $lessonSlug][0]{\n    _id,\n    title,\n    slug,\n    videoUrl,\n    "image": coalesce(poster, thumbnail),\n    duration,\n    freePreview,\n    studentCount,\n    keyPoints,\n    notes,\n    proTip,\n    resources,\n    "course": *[_type == "course" && references(^._id) && slug.current == $courseSlug][0]{\n      _id,\n      title,\n      slug,\n      level,\n      coverImage,\n      modules[]{\n        _key,\n        title,\n        lessons[]->{ _id, title, slug, duration }\n      }\n    }\n  }\n': LESSON_BY_SLUG_QUERY_RESULT;
   }
 }
