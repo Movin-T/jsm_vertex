@@ -184,7 +184,8 @@ export default async function Home() {
         </Link>
         <form
           className="mt-8 flex w-full max-w-[560px] items-center gap-3 rounded-[9px] border border-[#eee2da] bg-white/70 px-4 py-3.5 text-left shadow-[0_3px_12px_rgba(64,37,22,0.04)]"
-          action="#courses"
+          action="/search"
+          role="search"
         >
           <label htmlFor="learning-search" className="sr-only">
             Search your learning
@@ -192,7 +193,11 @@ export default async function Home() {
           <Icon name="search" className="h-6 w-6 shrink-0 text-[#45494e]" />
           <input
             id="learning-search"
+            name="q"
             type="search"
+            required
+            minLength={2}
+            maxLength={200}
             placeholder="Ask anything about your learning..."
             className="min-w-0 flex-1 bg-transparent text-[15px] text-[#31363c] outline-none placeholder:text-[#9aa0aa]"
           />

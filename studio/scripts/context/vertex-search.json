@@ -1,0 +1,8 @@
+{
+  "_id": "vertex-search-context",
+  "_type": "sanity.agentContext",
+  "name": "Vertex Search",
+  "slug": { "_type": "slug", "current": "vertex-search" },
+  "groqFilter": "_type in [\"course\", \"lesson\", \"instructor\", \"category\", \"video\"] && !(_id in path(\"drafts.**\"))",
+  "instructions": "Vertex is a course catalog. Courses embed modules (course.modules[]), and each module holds ordered references to lessons (modules[].lessons[]->). A lesson does not store its course: find it with *[_type == \"course\" && references(^._id)] or by dereferencing modules[].lessons[]._ref.\n\nText match is token based. Wildcard each keyword (\"fetch*\") and OR several words; never match a whole phrase as one pattern. Notes are Portable Text: match pt::text(notes), never notes directly. Match lesson title, keyPoints and pt::text(notes), and course title and summary.\n\nRank by specificity: a title containing the exact concept beats a keyword hit in notes. Return the _id of every matching lesson, best first.\n\nNever return notes, transcripts or chunks arrays wholesale; project only _id, title and short fields. Video documents are an internal lookup: chapters first, then transcript chunks, filtered to a few matches per video, and always tied to the lesson whose videoUrl matches the video url."
+}
